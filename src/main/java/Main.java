@@ -1,20 +1,19 @@
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
         Checkers checker = new Checkers();
-
+        Goods goods = new Goods();
+        Calculator calculator = new Calculator();
+        Formatter formatter = new Formatter();
 
         System.out.println("Введите размер Вашей компании :)");
 
-        int howManyPals = checker.isInt();
-        Calculator calculator = new Calculator(howManyPals);
+        calculator.addPals(checker.isInt());
 
         System.out.println("Окей, давайте Вас рассчитаем :)");
 
-        calculator.count();
-
-
+        goods.addMeal();
+        goods.printTotalGoods();
+        Double total = calculator.split(goods.returnTotalCost(), calculator.returnPals());
+        System.out.println("С каждого: " + formatter.correctCost(formatter.formatDouble(total)));
     }
 }

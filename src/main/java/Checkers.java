@@ -5,44 +5,47 @@ import java.util.InputMismatchException;
 public class Checkers {
     public int isInt() {
         Scanner scan = new Scanner(System.in);
+        int intToCheck;
 
         while (true) {
-            if (scan.hasNextInt()) {
-                int intToCheck = scan.nextInt();
-
-                if (intToCheck > 1) {
-                    return intToCheck;
-                } else if (intToCheck == 1) {
-                    System.out.println("Так ты же один, чего тут считать? :O");
-                } else if (intToCheck < 0) {
-                    System.out.println("Введи положительное число!");
-                } else {
-                    System.out.println("Никто не пришел на ужин? :C");
-                }
-            } else {
-                System.out.println("Не-а, введи корректное число!");
+            try {
+                intToCheck = scan.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Не-а, введите корректное число!");
                 scan.next();
+                continue;
+            }
+
+            if (intToCheck > 1) {
+                return intToCheck;
+            } else if (intToCheck == 1) {
+                System.out.println("Так Вы же один, чего тут считать? :O");
+            } else if (intToCheck < 0) {
+                System.out.println("Введите положительное число!");
+            } else {
+                System.out.println("Никто не пришел на ужин? :C");
             }
         }
     }
 
     public Double isCorrectCost() {
-
         Scanner scan = new Scanner(System.in).useLocale(Locale.US);
+        Formatter formatter = new Formatter();
+        Double validDouble;
 
         while (true) {
             try {
-                String strToDouble = String.format("%.2f", scan.nextDouble()).replace(",", ".");
-                Double validDouble = Double.valueOf(strToDouble);
-
-                if (validDouble < 0.01) {
-                    System.out.println("Цена должна быть больше нуля!");
-                } else {
-                    return validDouble;
-                }
+                validDouble = scan.nextDouble();
             } catch (InputMismatchException e) {
-                System.out.println("Введи корректную стоимость!");
+                System.out.println("Введите корректную стоимость!");
                 scan.next();
+                continue;
+            }
+
+            if (validDouble < 0.01) {
+                System.out.println("Цена должна быть больше нуля!");
+            } else {
+                return formatter.formatDouble(validDouble);
             }
         }
     }
